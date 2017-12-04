@@ -16,11 +16,12 @@ using Base.Test
     r.cache["foo"] = x
     @test r(==, "foo", x)
     @test r2(==, "foo", x)
+    rm(path, force=true)
 end
 
 @testset "JLDBackedCache" begin
-    path = joinpath(tempdir(), "a.jld")
-    o = JLDBackedCache(path)
+    path = tempname()
+    o = RegressionTests.JLDBackedCache(path)
     @test isempty(o)
     o["a"] = 1
     o["b"] = 2
@@ -28,6 +29,7 @@ end
     @test o["b"] == 2
     @test length(o) == 2
     @test Dict(o) == Dict("b" =>2, "a" => 1)
-    o2 = JLDBackedCache(path)
+    o2 = RegressionTests.JLDBackedCache(path)
     @test Dict(o2) == Dict(o)
+    rm(path, force=true)
 end
