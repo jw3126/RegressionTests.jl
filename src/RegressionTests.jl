@@ -1,5 +1,7 @@
+__precompile__(true)
 module RegressionTests
 
-# package code goes here
+include("database.jl")
+include("core.jl")
 
 end # module
