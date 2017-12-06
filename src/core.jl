@@ -1,6 +1,9 @@
+export RegressionTester
+
 struct RegressionTester
     cache::Associative{String, Any}
 end
+
 function readbool(msg)
     println(msg)
     try
@@ -10,10 +13,12 @@ function readbool(msg)
         readbool(msg)
     end
 end
+
 function RegressionTester(path::AbstractString)
     cache = JLDBackedCache(path)
     RegressionTester(cache)
 end
+
 function (r::RegressionTester)(f, key, computed; opts...)
     if key ∈ keys(r.cache)
         cached = r.cache[key]
