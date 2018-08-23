@@ -1,7 +1,7 @@
 export RegressionTester
 
 struct RegressionTester
-    cache::Associative{String, Any}
+    cache::AbstractDict{String, Any}
     read_cache_action::Function # :: RegressionTester -> key -> computed -> (cached, computed)
     result_action::Function # :: RegessionTester -> key -> cached -> computed -> result -> Any
 end
@@ -57,7 +57,7 @@ function RegressionTester(path::AbstractString; kw...)
     cache = JLDBackedCache(path)
     RegressionTester(cache; kw...)
 end
-function RegressionTester(cache::Associative,
+function RegressionTester(cache::AbstractDict,
                           read_cache_action=prompt_missing_keys,
                           result_action=pass_result)
     RegressionTester(cache, read_cache_action, result_action)

@@ -1,7 +1,7 @@
 using JLD2
 using FileIO
 
-struct JLDBackedCache <: Associative{String, Any}
+struct JLDBackedCache <: AbstractDict{String, Any}
     path::String
     function JLDBackedCache(path)
         if !ispath(path)
@@ -28,7 +28,7 @@ for f in [:keys, :values, :Dict,
         :getindex, 
         :setindex, :setindex!,
         :get, :get!,
-        :start, :next, :done,
+        :iterate,
         :length,
     ]
     @eval (Base.$f)(d::JLDBackedCache, args...) = with_dict($f, d, args...)

@@ -1,5 +1,5 @@
 using RegressionTests
-using Base.Test
+using Test
 
 @testset "RegressionTester" begin
     path = tempname()
